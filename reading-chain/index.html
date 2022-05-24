@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Läskedjor - Test</title>
+
+<!--Adding bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<link href="css/custom.css" rel="stylesheet">
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!--Firebase code-->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.0/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyC8k35mdpJA_4AnnppOdiZOi6mHb0kclmc",
+        authDomain: "readchain-1e975.firebaseapp.com",
+        databaseURL: "https://readchain-1e975-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "readchain-1e975",
+        storageBucket: "readchain-1e975.appspot.com",
+        messagingSenderId: "921308109737",
+        appId: "1:921308109737:web:aa60634baf626182f782b8",
+        measurementId: "G-GX3D58TLGR"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+  <a href="Pages/Register.html" style="float: right; margin-left: 10px; margin-top: 20px; color:white;">Registrera</a>
+<form class="navbar-form navbar-right">
+<div class="form-group">
+<input type="text" placeholder="E-post" class="form-control">
+</div>
+<div class="form-group">
+<input type="password" placeholder="Lösenord" class="form-control">
+</div>
+<button type="submit" class="btn btn-info">Logga in</button>
+</form>
+
+</div>
+
+</div>
+</nav>
+<div class="jumbotron">
+<div class="container">
+<div id="score">
+<strong>Slut på tiden!</strong><br /><br />
+<span id="score_name"></span><br />
+<span id="score_correct"></span> / <span id="score_total"></span>
+<br />
+<br />
+<input type="button" class="btn btn-primary btn-md" role="button" 
+onclick="location.reload(); "
+value="Tillbaka" data-cf-modified-6ab0d3aa8c18ce06486b6b14-="">
+</div>
+</div>
+<div class="setup container">
+<h2>Läskedjor</h2>
+<div class="row">
+<div class="col-md-6">
+<p>
+
+ <label style="margin-top:  30px; font-weight: 400 !important;">Testtid (s):
+<input type="text" class="gametime" value="30">
+</label>
+<label style="font-weight: 400 !important;">Scrolla automatiskt:
+<input type="checkbox" disabled="true">
+</label>
+</p>
+<p><a class="btn btn-info btn-lg" href="#" id="start_button" role="button">Starta</a></p>
+</div>
+<div class="col-md-6">
+<pre><strong>Databas (debug)</strong>
+
+School:     46656ee86ad894c3fe57bf33c307cd37   
+Student:    33e75ff09dd601bbe69f351039152189   
+Words:      Batch1_shuffled
+Difficulty: 82
+  </pre>
+</div>
+</div>
+</div>
+</div>
+<div class="container">
+
+<div style="display:none; margin-bottom: 800px;" class="game row">
+
+<!--Last stop for the words, this div is at the top and hidden-->
+  <div id="hidden" style="display:none"></div>
+
+  <!--This is the second stop for the words-->
+  <div id="second" style="margin-top: -200px;"></div>
+
+  <!--This is where the words first show up-->
+  <div id="first" style="margin-top: 250px; margin-bottom: 500px;"></div>
+
+  <!--All the words-->
+  <div class="word row" id="wont"><span class="character">o</span><span class="character">n</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">m</span><span class="character">y</span><span class="character">g</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">i</span><span class="character">s</span><span class="character">s</span></div>
+
+  <div class="word row" id="wcykel"><span class="character">c</span><span class="character">y</span><span class="character">k</span><span class="character">e</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">l</span><span class="character">y</span><span class="character">c</span><span class="character">k</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">r</span><span class="character">å</span></div>
+
+  <div class="word row" id="wtrafik"><span class="character">t</span><span class="character">r</span><span class="character">a</span><span class="character">f</span><span class="character">i</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">l</span><span class="character">i</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">t</span><span class="character">å</span><span class="character">l</span></div>
+  
+  <div class="word row" id="wdam"><span class="character">d</span><span class="character">a</span><span class="character">m</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">l</span><span class="character">a</span><span class="character">g</span><span class="character">g</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">y</span></div>
+  
+  <div class="word row" id="wstuga"><span class="character">s</span><span class="character">t</span><span class="character">u</span><span class="character">g</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">g</span><span class="character">r</span><span class="character">a</span><span class="character">n</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">a</span><span class="character">x</span></div>
+  
+  <div class="word row" id="wplåt"><span class="character">p</span><span class="character">l</span><span class="character">å</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">e</span><span class="character">n</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">y</span><span class="character">r</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wdag"><span class="character">d</span><span class="character">a</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">p</span><span class="character">a</span><span class="character">l</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">å</span><span class="character">r</span></div>
+  
+  <div class="word row" id="wgröt"><span class="character">g</span><span class="character">r</span><span class="character">ö</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">g</span><span class="character">r</span><span class="character">ä</span><span class="character">s</span><span style="display: none;" class="correct_position"></span><span class="character">i</span><span class="character">n</span><span class="character">t</span><span class="character">e</span></div>
+  
+  <div class="word row" id="wlång"><span class="character">l</span><span class="character">å</span><span class="character">n</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">m</span><span class="character">å</span><span class="character">n</span><span class="character">e</span><span style="display: none;" class="correct_position"></span><span class="character">r</span><span class="character">e</span><span class="character">s</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wmoped"><span class="character">m</span><span class="character">o</span><span class="character">p</span><span class="character">e</span><span class="character">d</span><span style="display: none;" class="correct_position"></span><span class="character">g</span><span class="character">l</span><span class="character">a</span><span class="character">s</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">i</span><span class="character">n</span></div>
+  
+  <div class="word row" id="wväg"><span class="character">v</span><span class="character">ä</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">a</span><span class="character">l</span><span class="character">d</span><span class="character">r</span><span class="character">i</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">r</span><span class="character">y</span><span class="character">g</span><span class="character">g</span></div>
+  
+  <div class="word row" id="wett"><span class="character">e</span><span class="character">t</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">o</span><span class="character">c</span><span class="character">k</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">g</span><span class="character">o</span><span class="character">t</span><span class="character">t</span></div>
+  
+  <div class="word row" id="wnöjd"><span class="character">n</span><span class="character">ö</span><span class="character">j</span><span class="character">d</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">i</span><span class="character">s</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">v</span><span class="character">ä</span><span class="character">n</span><span class="character">d</span></div>
+  
+  <div class="word row" id="whem"><span class="character">h</span><span class="character">e</span><span class="character">m</span><span style="display: none;" class="correct_position"></span><span class="character">k</span><span class="character">l</span><span class="character">a</span><span class="character">p</span><span class="character">p</span><span style="display: none;" class="correct_position"></span><span class="character">o</span><span class="character">n</span><span class="character">t</span></div>
+  
+  <div class="word row" id="wupp"><span class="character">u</span><span class="character">p</span><span class="character">p</span><span style="display: none;" class="correct_position"></span><span class="character">k</span><span class="character">a</span><span class="character">t</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">l</span><span class="character">ö</span><span class="character">s</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wfolk"><span class="character">f</span><span class="character">o</span><span class="character">l</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">ä</span><span class="character">s</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">r</span><span class="character">i</span></div>
+  
+  <div class="word row" id="wpaket"><span class="character">p</span><span class="character">a</span><span class="character">k</span><span class="character">e</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">v</span><span class="character">ä</span><span class="character">d</span><span class="character">e</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">i</span><span class="character">l</span></div>
+  
+  <div class="word row" id="wgren"><span class="character">g</span><span class="character">r</span><span class="character">e</span><span class="character">n</span><span style="display: none;" class="correct_position"></span><span class="character">l</span><span class="character">i</span><span class="character">l</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">l</span><span class="character">u</span><span class="character">t</span></div>
+  
+  <div class="word row" id="wnågon"><span class="character">n</span><span class="character">å</span><span class="character">g</span><span class="character">o</span><span class="character">n</span><span style="display: none;" class="correct_position"></span><span class="character">j</span><span class="character">u</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">o</span><span class="character">l</span><span class="character">v</span></div>
+  
+  <div class="word row" id="wmark"><span class="character">m</span><span class="character">a</span><span class="character">r</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">r</span><span class="character">ä</span><span class="character">d</span><span class="character">d</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">l</span><span class="character">i</span><span class="character">r</span></div>
+  
+  <div class="word row" id="wråtta"><span class="character">r</span><span class="character">å</span><span class="character">t</span><span class="character">t</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">y</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">ö</span><span class="character">r</span><span class="character">s</span><span class="character">t</span></div>
+  
+  <div class="word row" id="wsy"><span class="character">s</span><span class="character">y</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">a</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">ö</span><span class="character">g</span></div>
+  
+  <div class="word row" id="wdike"><span class="character">d</span><span class="character">i</span><span class="character">k</span><span class="character">e</span><span style="display: none;" class="correct_position"></span><span class="character">m</span><span class="character">o</span><span class="character">t</span><span class="character">o</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">g</span><span class="character">å</span></div>
+  
+  <div class="word row" id="wrum"><span class="character">r</span><span class="character">u</span><span class="character">m</span><span style="display: none;" class="correct_position"></span><span class="character">k</span><span class="character">n</span><span class="character">l</span><span class="character">v</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">å</span><span class="character">g</span></div>
+  
+  <div class="word row" id="wgod"><span class="character">g</span><span class="character">o</span><span class="character">d</span><span style="display: none;" class="correct_position"></span><span class="character">g</span><span class="character">r</span><span class="character">y</span><span class="character">n</span><span style="display: none;" class="correct_position"></span><span class="character">u</span><span class="character">t</span><span class="character">e</span></div>
+  
+  <div class="word row" id="whel"><span class="character">h</span><span class="character">e</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">r</span><span class="character">e</span><span class="character">v</span><span style="display: none;" class="correct_position"></span><span class="character">r</span><span class="character">ö</span><span class="character">k</span></div>
+  
+  <div class="word row" id="wkal"><span class="character">k</span><span class="character">a</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">r</span><span class="character">i</span><span class="character">k</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">v</span><span class="character">i</span><span class="character">n</span><span class="character">g</span><span class="character">e</span></div>
+  
+  <div class="word row" id="wrep"><span class="character">r</span><span class="character">e</span><span class="character">p</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">r</span><span class="character">ä</span><span class="character">d</span><span style="display: none;" class="correct_position"></span><span class="character">v</span><span class="character">a</span><span class="character">d</span></div>
+  
+  <div class="word row" id="wöppna"><span class="character">ö</span><span class="character">p</span><span class="character">p</span><span class="character">n</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">ä</span><span class="character">c</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">a</span><span class="character">p</span><span class="character">p</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wtavla"><span class="character">t</span><span class="character">a</span><span class="character">v</span><span class="character">l</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">o</span><span class="character">r</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">k</span><span class="character">n</span><span class="character">u</span><span class="character">t</span></div>
+  
+  <div class="word row" id="wräkning"><span class="character">r</span><span class="character">ä</span><span class="character">k</span><span class="character">n</span><span class="character">i</span><span class="character">n</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">å</span><span style="display: none;" class="correct_position"></span><span class="character">v</span><span class="character">e</span><span class="character">d</span></div>
+  
+  <div class="word row" id="wligga"><span class="character">l</span><span class="character">i</span><span class="character">g</span><span class="character">g</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">g</span><span class="character">r</span><span class="character">ö</span><span class="character">n</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">m</span><span class="character">e</span><span class="character">t</span></div>
+  
+  <div class="word row" id="wrad"><span class="character">r</span><span class="character">a</span><span class="character">d</span><span style="display: none;" class="correct_position"></span><span class="character">m</span><span class="character">o</span><span class="character">s</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">a</span><span class="character">d</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wål"><span class="character">å</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">l</span><span class="character">u</span><span class="character">g</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">ä</span><span class="character">l</span><span class="character">t</span></div>
+  
+  <div class="word row" id="wtio"><span class="character">t</span><span class="character">i</span><span class="character">o</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">p</span><span class="character">i</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">p</span><span class="character">a</span><span class="character">n</span><span class="character">n</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wgris"><span class="character">g</span><span class="character">r</span><span class="character">i</span><span class="character">s</span><span style="display: none;" class="correct_position"></span><span class="character">l</span><span class="character">ö</span><span class="character">p</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">u</span><span class="character">n</span><span class="character">d</span></div>
+  
+  <div class="word row" id="wland"><span class="character">l</span><span class="character">a</span><span class="character">n</span><span class="character">d</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">a</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">ö</span><span class="character">g</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wkaffe"><span class="character">k</span><span class="character">a</span><span class="character">f</span><span class="character">f</span><span class="character">e</span><span style="display: none;" class="correct_position"></span><span class="character">p</span><span class="character">ä</span><span class="character">l</span><span class="character">s</span><span style="display: none;" class="correct_position"></span><span class="character">g</span><span class="character">u</span><span class="character">l</span></div>
+  
+  <div class="word row" id="wbred"><span class="character">b</span><span class="character">r</span><span class="character">e</span><span class="character">d</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">m</span><span class="character">y</span><span class="character">g</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">e</span><span class="character">r</span></div>
+  
+  <div class="word row" id="wplan"><span class="character">p</span><span class="character">l</span><span class="character">a</span><span class="character">n</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">o</span><span class="character">f</span><span class="character">f</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">k</span><span class="character">o</span><span class="character">r</span></div>
+  
+  <div class="word row" id="wmor"><span class="character">m</span><span class="character">o</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">e</span><span class="character">j</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">u</span><span class="character">s</span></div>
+  
+  <div class="word row" id="wöra"><span class="character">ö</span><span class="character">r</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">m</span><span class="character">å</span><span class="character">n</span><span class="character">e</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">u</span><span class="character">r</span></div>
+  
+  <div class="word row" id="wår"><span class="character">å</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">o</span><span class="character">l</span><span class="character">v</span><span style="display: none;" class="correct_position"></span><span class="character">j</span><span class="character">a</span><span class="character">c</span><span class="character">k</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wgata"><span class="character">g</span><span class="character">a</span><span class="character">t</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">a</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">r</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wgapa"><span class="character">g</span><span class="character">a</span><span class="character">p</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">r</span><span class="character">u</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">o</span><span class="character">k</span></div>
+  
+  <div class="word row" id="wräkna"><span class="character">r</span><span class="character">ä</span><span class="character">k</span><span class="character">n</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">i</span><span style="display: none;" class="correct_position"></span><span class="character">v</span><span class="character">i</span><span class="character">n</span></div>
+  
+  <div class="word row" id="weller"><span class="character">e</span><span class="character">l</span><span class="character">l</span><span class="character">e</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">i</span><span class="character">s</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">l</span><span class="character">ö</span><span class="character">v</span></div>
+  
+  <div class="word row" id="wvatten"><span class="character">v</span><span class="character">a</span><span class="character">t</span><span class="character">t</span><span class="character">e</span><span class="character">n</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">l</span><span class="character">å</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">u</span><span class="character">p</span><span class="character">p</span></div>
+  
+  <div class="word row" id="wlampa"><span class="character">l</span><span class="character">a</span><span class="character">m</span><span class="character">p</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">l</span><span class="character">å</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">a</span><span class="character">n</span><span class="character">k</span></div>
+  
+  <div class="word row" id="wsnö"><span class="character">s</span><span class="character">n</span><span class="character">ö</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">å</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">k</span><span class="character">o</span></div>
+  
+  <div class="word row" id="wrygg"><span class="character">r</span><span class="character">y</span><span class="character">g</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">d</span><span class="character">o</span><span class="character">c</span><span class="character">k</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">m</span><span class="character">u</span><span class="character">r</span></div>
+  
+  <div class="word row" id="wmellan"><span class="character">m</span><span class="character">e</span><span class="character">l</span><span class="character">l</span><span class="character">a</span><span class="character">n</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">r</span><span class="character">a</span><span class="character">m</span><span style="display: none;" class="correct_position"></span><span class="character">k</span><span class="character">e</span><span class="character">p</span><span class="character">s</span></div>
+  
+  <div class="word row" id="wsmör"><span class="character">s</span><span class="character">m</span><span class="character">ö</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">a</span><span class="character">v</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">i</span><span class="character">1</span><span class="character">m</span></div>
+  
+  <div class="word row" id="wsåg"><span class="character">s</span><span class="character">å</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">v</span><span class="character">a</span><span class="character">s</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">y</span></div>
+  
+  <div class="word row" id="wvår"><span class="character">v</span><span class="character">å</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">p</span><span class="character">e</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">r</span><span class="character">u</span><span class="character">m</span></div>
+  
+  <div class="word row" id="wsocker"><span class="character">s</span><span class="character">o</span><span class="character">c</span><span class="character">k</span><span class="character">e</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">å</span><span class="character">n</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">e</span><span class="character">l</span><span class="character">v</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wpojke"><span class="character">p</span><span class="character">o</span><span class="character">j</span><span class="character">k</span><span class="character">e</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">r</span><span class="character">e</span><span class="character">d</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">å</span><span class="character">r</span></div>
+  
+  <div class="word row" id="wse"><span class="character">s</span><span class="character">e</span><span style="display: none;" class="correct_position"></span><span class="character">o</span><span class="character">c</span><span class="character">h</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">y</span><span class="character">g</span></div>
+  
+  <div class="word row" id="wlila"><span class="character">l</span><span class="character">i</span><span class="character">l</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">n</span><span class="character">y</span><span style="display: none;" class="correct_position"></span><span class="character">l</span><span class="character">å</span><span class="character">d</span><span class="character">o</span><span class="character">r</span></div>
+  
+  <div class="word row" id="wspå"><span class="character">s</span><span class="character">p</span><span class="character">å</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">ä</span><span class="character">n</span><span class="character">k</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">ö</span><span class="character">g</span></div>
+  
+  <div class="word row" id="wmat"><span class="character">m</span><span class="character">a</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">a</span><span class="character">l</span><span class="character">l</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">n</span><span class="character">å</span><span class="character">l</span></div>
+  
+  <div class="word row" id="wbrun"><span class="character">b</span><span class="character">r</span><span class="character">u</span><span class="character">n</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">å</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">e</span><span class="character">t</span></div>
+  
+  <div class="word row" id="wnjuta"><span class="character">n</span><span class="character">j</span><span class="character">u</span><span class="character">t</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">v</span><span class="character">i</span><span class="character">n</span><span class="character">d</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">a</span><span class="character">r</span><span class="character">r</span></div>
+  
+  <div class="word row" id="wur"><span class="character">u</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">k</span><span class="character">a</span><span class="character">k</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">p</span><span class="character">å</span><span class="character">s</span><span class="character">e</span></div>
+  
+  <div class="word row" id="wvåg"><span class="character">v</span><span class="character">å</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">a</span><span class="character">c</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">j</span><span class="character">u</span><span class="character">g</span><span class="character">o</span></div>
+  
+  <div class="word row" id="wunder"><span class="character">u</span><span class="character">n</span><span class="character">d</span><span class="character">e</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">y</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">o</span><span class="character">s</span><span class="character">t</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wräv"><span class="character">r</span><span class="character">ä</span><span class="character">v</span><span style="display: none;" class="correct_position"></span><span class="character">g</span><span class="character">a</span><span class="character">l</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">o</span><span class="character">l</span><span class="character">j</span><span class="character">a</span></div>
+  
+  <div class="word row" id="warm"><span class="character">a</span><span class="character">r</span><span class="character">m</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">l</span><span class="character">i</span><span class="character">c</span><span class="character">k</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">l</span><span class="character">y</span></div>
+  
+  <div class="word row" id="wstopp"><span class="character">s</span><span class="character">t</span><span class="character">o</span><span class="character">p</span><span class="character">p</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">o</span><span class="character">p</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">r</span><span class="character">ö</span><span class="character">d</span></div>
+  
+  <div class="word row" id="whopp"><span class="character">h</span><span class="character">o</span><span class="character">p</span><span class="character">p</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">r</span><span class="character">å</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">l</span><span class="character">a</span><span class="character">n</span><span class="character">d</span></div>
+  
+  <div class="word row" id="wmjölk"><span class="character">m</span><span class="character">j</span><span class="character">ö</span><span class="character">l</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">t</span><span class="character">a</span><span class="character">r</span><span class="character">e</span><span style="display: none;" class="correct_position"></span><span class="character">l</span><span class="character">ö</span><span class="character">p</span><span class="character">a</span></div>
+  
+  <div class="word row" id="wefter"><span class="character">e</span><span class="character">f</span><span class="character">t</span><span class="character">e</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">e</span><span class="character">k</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">j</span><span class="character">a</span><span class="character">k</span><span class="character">t</span></div>
+  
+  <div class="word row" id="wväder"><span class="character">v</span><span class="character">ä</span><span class="character">d</span><span class="character">e</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">v</span><span class="character">ä</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">h</span><span class="character">e</span><span class="character">m</span><span class="character">s</span><span class="character">k</span></div>
+  
+  <div class="word row" id="wsol"><span class="character">s</span><span class="character">o</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">v</span><span class="character">ä</span><span class="character">g</span><span style="display: none;" class="correct_position"></span><span class="character">l</span><span class="character">u</span><span class="character">s</span></div>
+  
+  <div class="word row" id="wmat"><span class="character">m</span><span class="character">a</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">c</span><span class="character">y</span><span class="character">k</span><span class="character">e</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">k</span><span class="character">e</span><span class="character">x</span></div>
+  
+  <div class="word row" id="whär"><span class="character">h</span><span class="character">ä</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">s</span><span class="character">l</span><span class="character">u</span><span class="character">t</span><span class="character">a</span><span class="character">r</span><span style="display: none;" class="correct_position"></span><span class="character">d</span><span class="character">e</span><span class="character">t</span></div>
+  
+  <div class="word row" id="wöl"><span class="character">ö</span><span class="character">l</span><span style="display: none;" class="correct_position"></span><span class="character">b</span><span class="character">ä</span><span class="character">c</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">ä</span><span class="character">p</span><span class="character">p</span><span class="character">l</span><span class="character">e</span></div>
+  
+  <div class="word row" id="wtå"><span class="character">t</span><span class="character">å</span><span style="display: none;" class="correct_position"></span><span class="character">m</span><span class="character">y</span><span class="character">c</span><span class="character">k</span><span class="character">e</span><span class="character">t</span><span style="display: none;" class="correct_position"></span><span class="character">f</span><span class="character">u</span><span class="character">l</span><span class="character">l</span></div>
+  
+  <div class="word row" id="wsimma"><span class="character">s</span><span class="character">i</span><span class="character">m</span><span class="character">m</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">k</span><span class="character">r</span><span class="character">ä</span><span class="character">m</span><span style="display: none;" class="correct_position"></span><span class="character">t</span><span class="character">a</span><span class="character">g</span><span class="character">g</span></div>
+  
+  <div class="word row" id="wspråk"><span class="character">s</span><span class="character">p</span><span class="character">r</span><span class="character">å</span><span class="character">k</span><span style="display: none;" class="correct_position"></span><span class="character">p</span><span class="character">e</span><span class="character">n</span><span class="character">n</span><span class="character">a</span><span style="display: none;" class="correct_position"></span><span class="character">m</span><span class="character">y</span><span class="character">r</span><span class="character">a</span></div>
+ <!--Words ends here-->
+</div>
+
+<hr>
+<footer>
+<p>&copy; IMVI Labs AB 2022</p>
+</footer>
+</div>
+
+<script src="js/app.js" type="text/javascript"></script>
+<script src="js/moving.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
